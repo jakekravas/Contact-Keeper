@@ -5,7 +5,7 @@ const db = config.get("mongoURI");
 // Same thing as below, just looks cleaner
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || db);
+    await mongoose.connect(process.env.MONGODB_URI || db, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("MongoDB Connected...");
   } catch (err ) {
     console.error(err.message);
@@ -14,7 +14,7 @@ const connectDB = async () => {
 }
 
 // const connectDB = () => {
-//   mongoose.connect(process.env.MONGODB_URI || db).then(() => {
+//   mongoose.connect(process.env.MONGODB_URI || db, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
 //     console.log("MongoDB Connected");
 //   }).catch(err => {
 //     console.error(err.message);
