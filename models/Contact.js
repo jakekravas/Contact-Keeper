@@ -16,10 +16,6 @@ const ContactSchema = mongoose.Schema({
   phone: {
     type: String
   },
-  password: {
-    type: String,
-    required: true
-  },
   type: {
     type: String,
     default: "personal"
