@@ -1,11 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
+const { check, validationResult } = require('express-validator');
+
+const User = require('../models/User');
+const Contact = require('../models/Contact');
 
 // @route       GET api/contacts
 // @desc        Get all users contacts
-// @access      Public
-router.get("/", (req, res) => {
-  res.send("Get all contacts");
+// @access      Private
+router.get("/", auth, async (req, res) => { //adding auth as 2nd parameter makes route protected
+  try {
+    // sort date thing is to get the most recent contacts first
+    const contacts = await Contact.find({ user: req.user.id }).sort({ date: -1 });
+    res.json(contacts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
 });
 
 // @route       POST api/contacts
