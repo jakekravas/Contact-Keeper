@@ -22,22 +22,22 @@ export default (state, action) => {
     case ADD_CONTACT:
       return {
         ...state,
-        contacts: [...state.contacts, action.payload],
+        contacts: [action.payload, ...state.contacts],
         loading: false
       }
     case UPDATE_CONTACT:
       return {
         ...state,
         contacts: state.contacts.map(
-        // if the contact's id that we're iterating thru is equal to the one in the payload, set that element of the array to the contact object in the payload, otherwise set the element to the contact as is
-        contact => contact.id === action.payload.id ? action.payload : contact
+        contact => contact._id === action.payload._id ? action.payload : contact
         ),
         loading: false
       }
     case DELETE_CONTACT:
+      console.log(state.contacts);
       return {
         ...state,
-        contacts: state.contacts.filter(contact => contact.id !== action.payload),
+        contacts: state.contacts.filter(contact => contact._id !== action.payload),
         loading: false
       }
     case CLEAR_CONTACTS:
